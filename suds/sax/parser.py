@@ -33,8 +33,9 @@ from suds.sax.document import Document
 from suds.sax.element import Element
 from suds.sax.text import Text
 from suds.sax.attribute import Attribute
-from xml.sax import make_parser, ContentHandler, parseString
+from xml.sax import ContentHandler
 from xml.sax.handler import feature_external_ges
+import defusedxml.sax
 
 log = getLogger(__name__)
 
@@ -106,7 +107,7 @@ class Parser:
 
     @classmethod
     def saxparser(cls):
-        p = make_parser()
+        p = defusedxml.sax.make_parser()
         p.setFeature(feature_external_ges, 0)
         h = Handler()
         p.setContentHandler(h)
@@ -131,7 +132,7 @@ class Parser:
         if string is not None:
             if isinstance(string, str):
                 string = string.encode()
-            parseString(string, handler)
+            defusedxml.sax.parseString(string, handler)
             timer.stop()
             metrics.log.debug('%s\nsax duration: %s', string, timer)
             return handler.nodes[0]
