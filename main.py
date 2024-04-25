@@ -129,7 +129,7 @@ def wikify(text, language):
 
 def untab(text):
     lines = text.strip("\n").split("\n")
-    if not all([x.startswith("    ") or x == "" for x in lines]):
+    if not all(x.startswith("    ") or x == "" for x in lines):
         return "\n".join(lines)
 
     return "\n".join([x[4:] if len(x) >= 4 else "" for x in lines])
