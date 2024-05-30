@@ -45,5 +45,6 @@ class ExtraExtension(markdown.Extension):
         """ Register extension instances. """
         md.registerExtensions(extensions, self.config)
 
-def makeExtension(configs={}):
+def makeExtension(configs=None):
+    configs = {} if configs is None else configs
     return ExtraExtension(configs=dict(configs))

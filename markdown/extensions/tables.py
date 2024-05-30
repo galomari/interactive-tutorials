@@ -93,5 +93,6 @@ class TableExtension(markdown.Extension):
                                       '<hashheader')
 
 
-def makeExtension(configs={}):
+def makeExtension(configs=None):
+    configs = {} if configs is None else configs
     return TableExtension(configs=configs)

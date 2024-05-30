@@ -219,6 +219,7 @@ class CodeHiliteExtension(markdown.Extension):
         md.treeprocessors.add("hilite", hiliter, "_begin") 
 
 
-def makeExtension(configs={}):
+def makeExtension(configs=None):
+  configs = {} if configs is None else configs
   return CodeHiliteExtension(configs=configs)
 

@@ -99,6 +99,7 @@ class DefListExtension(markdown.Extension):
                                       '>ulist')
 
 
-def makeExtension(configs={}):
+def makeExtension(configs=None):
+    configs = {} if configs is None else configs
     return DefListExtension(configs=configs)
 

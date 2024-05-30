@@ -99,7 +99,8 @@ class Factory:
     cache = {}
 
     @classmethod
-    def subclass(cls, name, bases, dict={}):
+    def subclass(cls, name, bases, dict=None):
+        dict = {} if dict is None else dict
         if not isinstance(bases, tuple):
             bases = (bases,)
         key = '.'.join((name, str(bases)))
@@ -110,7 +111,8 @@ class Factory:
         return subclass
 
     @classmethod
-    def object(cls, classname=None, dict={}):
+    def object(cls, classname=None, dict=None):
+        dict = {} if dict is None else dict
         if classname is not None:
             subclass = cls.subclass(classname, Object)
             inst = subclass()

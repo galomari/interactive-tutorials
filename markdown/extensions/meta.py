@@ -82,7 +82,8 @@ class MetaPreprocessor(markdown.preprocessors.Preprocessor):
         return lines
         
 
-def makeExtension(configs={}):
+def makeExtension(configs=None):
+    configs = {} if configs is None else configs
     return MetaExtension(configs=configs)
 
 if __name__ == "__main__":

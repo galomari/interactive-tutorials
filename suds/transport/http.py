@@ -153,7 +153,8 @@ class HttpTransport(Transport):
             log.exception(e)
             return 0
 
-    def __deepcopy__(self, memo={}):
+    def __deepcopy__(self, memo=None):
+        memo = {} if memo is None else memo
         clone = self.__class__()
         p = Unskin(self.options)
         cp = Unskin(clone.options)

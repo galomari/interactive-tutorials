@@ -301,7 +301,8 @@ class FootnotePostprocessor(markdown.postprocessors.Postprocessor):
         text = text.replace(FN_BACKLINK_TEXT, "&#8617;")
         return text.replace(NBSP_PLACEHOLDER, "&#160;")
 
-def makeExtension(configs=[]):
+def makeExtension(configs=None):
     """ Return an instance of the FootnoteExtension """
+    configs = [] if configs is None else configs
     return FootnoteExtension(configs=configs)
 

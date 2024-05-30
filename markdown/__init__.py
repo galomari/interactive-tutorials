@@ -180,8 +180,8 @@ class Markdown:
     """Convert Markdown to HTML."""
 
     def __init__(self,
-                 extensions=[],
-                 extension_configs={},
+                 extensions=None,
+                 extension_configs=None,
                  safe_mode = False, 
                  output_format=DEFAULT_OUTPUT_FORMAT):
         """
@@ -205,6 +205,8 @@ class Markdown:
             if it makes sense at that time. 
 
         """
+        extensions = [] if extensions is None else extensions
+        extension_configs = {} if extension_configs is None else extension_configs
         
         self.safeMode = safe_mode
         self.registeredExtensions = []
@@ -464,13 +466,14 @@ Extensions
 
 class Extension:
     """ Base class for extensions to subclass. """
-    def __init__(self, configs = {}):
+    def __init__(self, configs = None):
         """Create an instance of an Extention.
 
         Keyword arguments:
 
         * configs: A dict of configuration setting used by an Extension.
         """
+        configs = {} if configs is None else configs
         self.config = configs
 
     def getConfig(self, key):
@@ -505,13 +508,14 @@ class Extension:
             'method.' % (self.__class__.__module__, self.__class__.__name__))
 
 
-def load_extension(ext_name, configs = []):
+def load_extension(ext_name, configs = None):
     """Load extension by name, then return the module.
 
     The extension name may contain arguments as part of the string in the
     following format: "extname(key1=value1,key2=value2)"
 
     """
+    configs = [] if configs is None else configs
 
     # Parse extensions config params (ignore the order)
     configs = dict(configs)
@@ -566,7 +570,7 @@ markdownFromFile().
 """
 
 def markdown(text,
-             extensions = [],
+             extensions = None,
              safe_mode = False,
              output_format = DEFAULT_OUTPUT_FORMAT):
     """Convert a markdown string to HTML and return HTML as a unicode string.
@@ -592,6 +596,7 @@ def markdown(text,
     Returns: An HTML document as a string.
 
     """
+    extensions = [] if extensions is None else extensions
     md = Markdown(extensions=load_extensions(extensions),
                   safe_mode=safe_mode, 
                   output_format=output_format)
@@ -600,11 +605,12 @@ def markdown(text,
 
 def markdownFromFile(input = None,
                      output = None,
-                     extensions = [],
+                     extensions = None,
                      encoding = None,
                      safe_mode = False,
                      output_format = DEFAULT_OUTPUT_FORMAT):
     """Read markdown code from a file and write it to a file or a stream."""
+    extensions = [] if extensions is None else extensions
     md = Markdown(extensions=load_extensions(extensions), 
                   safe_mode=safe_mode,
                   output_format=output_format)
