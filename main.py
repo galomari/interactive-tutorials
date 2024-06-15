@@ -416,7 +416,7 @@ def index(title, language="en"):
     else:
         data["solved"] = False
 
-    return make_response(json.dumps(data))
+    return make_response(json.dumps(data), {'Content-Type': 'application/json'})
 
 
 @app.route("/sitemap.xml")
